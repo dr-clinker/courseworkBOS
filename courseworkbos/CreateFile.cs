@@ -16,6 +16,7 @@ namespace courseworkbos
         string filename;
         string file;
         bool overwrite = false;
+        bool seek = false;
         List<int> startindexes = new List<int>();
         public CreateFile(string disk, List<int> startindexes)
         {
@@ -35,7 +36,15 @@ namespace courseworkbos
             richTextBox1.Text = file;
             overwrite = true;
         }
-
+        public CreateFile(string disk, List<int> startindexes, bool seek)
+        {
+            InitializeComponent();
+            this.disk = disk;
+            overwrite = false;
+            this.startindexes = startindexes;
+            this.seek = seek;
+            MessageBox.Show("В появившемся окне введите номер позиции, с которой нужно записать файл");
+        }
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -114,6 +123,11 @@ namespace courseworkbos
                 }
                 streamWriter.Close();
                 MessageBox.Show("Файл успешно сохранён");
+
+                //закрытие формы после сохранения
+                this.Close();
+                Form2 form2 = new Form2();
+                form2.Show();
             }
         }
     }

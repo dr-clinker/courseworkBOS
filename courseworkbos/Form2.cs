@@ -120,17 +120,6 @@ namespace courseworkbos
                     }
                 }
             }
-
-            //startindexes.Remove(disk.IndexOf(filename + "^" + file));
-            //disk = disk.Replace(filename + "^" + file, rm);
-            //File.Delete("catalog.txt");
-            //StreamWriter streamWriter = File.AppendText("catalog.txt");
-            //foreach (int index in startindexes)
-            //{
-            //    streamWriter.WriteLine(index);
-            //}
-            //streamWriter.Close();
-
             
 
 
@@ -145,6 +134,13 @@ namespace courseworkbos
             this.Hide();
             Form2 form2 = new Form2();
             form2.Show();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            CreateFile createFile = new CreateFile(disk, startindexes, true);
+            this.Close();
+            createFile.Show();
         }
     }
 }
