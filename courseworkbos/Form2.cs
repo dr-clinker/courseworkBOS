@@ -38,7 +38,7 @@ namespace courseworkbos
         {
             string selectedfilename = listBox1.SelectedItem.ToString();
             int index = disk.IndexOf(selectedfilename);
-            int lastindex = 0;
+            int lastindex = -1;
             for(int i = 0; i<startindexes.Count; i++)
             {
                 if(startindexes.ElementAt(i) > index)
@@ -46,6 +46,10 @@ namespace courseworkbos
                     lastindex = startindexes.ElementAt(i);
                     break;
                 }
+            }
+            if (lastindex ==-1)
+            {
+                lastindex = startindexes.Last<int>() + disk.Substring(startindexes.Last<int>()).IndexOf("*");
             }
            
             string file = disk.Substring(index, lastindex - index);
@@ -76,6 +80,11 @@ namespace courseworkbos
             {
                 listBox1.Items.Add(disk.Substring(index, disk.Substring(index).IndexOf('^')));
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
