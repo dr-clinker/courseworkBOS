@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Collections;
@@ -82,9 +81,51 @@ namespace courseworkbos
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e) //закрыть программу
         {
             Application.Exit();
+        }
+
+        private void button3_Click(object sender, EventArgs e) //удалить файл
+        {
+            string filename = listBox1.SelectedItem.ToString();
+            int i;
+            for (i = 0; i < startindexes.Count; i++)
+            {
+                if (disk.Substring(startindexes.ElementAt(i)).StartsWith(filename + "^"))
+                {
+                    if(disk.Substring(startindexes.ElementAt(i) + filename.Length + 1).Contains("^"))
+                    {
+                        disk = disk.Remove(startindexes.ElementAt(i), startindexes.ElementAt(i + 1) - startindexes.ElementAt(i));
+                    }
+                    else
+                    {
+                        string file = disk.Substring(startindexes.ElementAt(i));
+                        int k = file.IndexOf("*");
+                        disk = disk.Remove(startindexes.ElementAt(i), k);
+                        string rm = "*";
+                        for (int z = 0; z < k; z++)
+                        {
+                            rm += "*";
+                        }
+                        //disk = disk.Insert(startindexes.ElementAt(i),);
+                    }
+                }
+            }
+            if (startindexes.Count < i + 1)
+            {
+
+            }
+           
+            //startindexes.Remove(disk.IndexOf(filename + "^" + file));
+            //disk = disk.Replace(filename + "^" + file, rm);
+            //File.Delete("catalog.txt");
+            //StreamWriter streamWriter = File.AppendText("catalog.txt");
+            //foreach (int index in startindexes)
+            //{
+            //    streamWriter.WriteLine(index);
+            //}
+            //streamWriter.Close();
         }
     }
 }

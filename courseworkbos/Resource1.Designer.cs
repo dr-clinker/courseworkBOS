@@ -63,16 +63,6 @@ namespace courseworkbos {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _1486564399_close_81512 {
-            get {
-                object obj = ResourceManager.GetObject("_1486564399_close_81512", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap _1486564399_close_81512__2_ {
             get {
                 object obj = ResourceManager.GetObject("_1486564399_close_81512__2_", resourceCulture);
