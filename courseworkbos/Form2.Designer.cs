@@ -34,6 +34,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listBox1
@@ -85,12 +86,13 @@
             // 
             // button3
             // 
+            this.button3.BackColor = System.Drawing.Color.Red;
             this.button3.Location = new System.Drawing.Point(166, 311);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(81, 35);
             this.button3.TabIndex = 5;
             this.button3.Text = "Удалить";
-            this.button3.UseVisualStyleBackColor = true;
+            this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
@@ -103,12 +105,24 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // button5
+            // 
+            this.button5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.button5.Location = new System.Drawing.Point(166, 377);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(99, 24);
+            this.button5.TabIndex = 7;
+            this.button5.Text = "Копировать";
+            this.button5.UseVisualStyleBackColor = false;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(537, 450);
             this.ControlBox = false;
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
@@ -131,5 +145,6 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
     }
 }

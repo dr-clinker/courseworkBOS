@@ -142,5 +142,63 @@ namespace courseworkbos
             this.Hide();
             createFile.Show();
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            string selectedfilename = listBox1.SelectedItem.ToString();
+            int index = disk.IndexOf(selectedfilename);
+            int lastindex = -1;
+            for (int i = 0; i < startindexes.Count; i++)
+            {
+                if (startindexes.ElementAt(i) > index)
+                {
+                    lastindex = startindexes.ElementAt(i);
+                    break;
+                }
+            }
+            if (lastindex == -1)
+            {
+                lastindex = startindexes.Last<int>() + disk.Substring(startindexes.Last<int>()).IndexOf("*");
+            }
+
+            string file = disk.Substring(index, lastindex - index);
+            file = file.Substring(file.IndexOf('^') + 1).Replace("*", "");
+            string rewrstring = "*";
+            for (int i = 0; i < selectedfilename.Length + file.Length +1; i++)
+            {
+                rewrstring += "*";
+            }
+            int startindex = disk.IndexOf(rewrstring);
+            disk = disk.Remove(startindex, rewrstring.Length);
+            disk = disk.Insert(startindex, selectedfilename + "1" + "^" + file);
+
+            File.WriteAllText("harddrive.txt", disk);
+            StreamWriter writer = File.AppendText("catalog.txt");
+            if (!startindexes.Contains(startindex))
+            {
+                writer.WriteLine(startindex);
+            }
+            writer.Close();
+            startindexes.Clear();
+            StreamReader reader = new StreamReader("catalog.txt");
+
+            while (!reader.EndOfStream)
+            {
+                startindexes.Add(Int32.Parse(reader.ReadLine()));
+            }
+            reader.Close();
+            indexcomparer indexcomparer = new indexcomparer();
+            startindexes.Sort(indexcomparer);
+            File.Delete("catalog.txt");
+            StreamWriter streamWriter = File.AppendText("catalog.txt");
+            foreach (int ind in startindexes)
+            {
+                streamWriter.WriteLine(ind);
+            }
+            streamWriter.Close();
+            MessageBox.Show("Файл успешно сохранён");
+
+            checkfiles();
+        }
     }
 }
