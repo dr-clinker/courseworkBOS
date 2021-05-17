@@ -56,41 +56,62 @@ namespace courseworkbos
                 }
                 else
                 {
-                    string rm = "*";
-                    for (int i = 0; i < alllenght; i++)
-                    {
-                        rm += "*";
-                    }
-                    rewrite(rm, textBox1.Text, richTextBox1.Text);
+                    rewrite();
 
                 }               
             }
             else //если файл перезаписывается
             {
-                rewrite(filename + "^" + file, textBox1.Text, richTextBox1.Text);
+                string rm = "*";
+                for (int i = 0; i < filename.Length + file.Length; i++)
+                {
+                    rm += "*";
+                }
+                startindexes.Remove(disk.IndexOf(filename + "^" + file));
+                disk = disk.Replace(filename + "^" + file, rm);
+                rewrite();
+
             }
 
         }
-        public void rewrite(string rewrstring, string filename, string file)
+        public void rewrite()
         {
+            indexcomparer indexcomparer = new indexcomparer();
+            string filename = textBox1.Text;
+            string file = richTextBox1.Text;
+            int alllenght = textBox1.Text.Length + richTextBox1.Text.Length;
+            string rewrstring = "*";
+            for (int i = 0; i < alllenght; i++)
+            {
+                rewrstring += "*";
+            }
             int startindex = disk.IndexOf(rewrstring);
             disk = disk.Remove(startindex, rewrstring.Length);
             disk = disk.Insert(startindex, filename + "^" + file);
             File.WriteAllText("harddrive.txt", disk);
             StreamWriter writer = File.AppendText("catalog.txt");
-            writer.WriteLine(startindex);
+            if (!startindexes.Contains(startindex))
+            {
+                writer.WriteLine(startindex);
+            }
             writer.Close();
-            StreamReader reader = new StreamReader("catalog.txt");
             startindexes.Clear();
+            StreamReader reader = new StreamReader("catalog.txt");
+
             while (!reader.EndOfStream)
             {
                 startindexes.Add(Int32.Parse(reader.ReadLine()));
             }
-            startindexes.Sort();
-            foreach(int index in startindexes)
+            reader.Close();
+
+            startindexes.Sort(indexcomparer);
+            File.Delete("catalog.txt");
+            StreamWriter streamWriter = File.AppendText("catalog.txt");
+            foreach (int index in startindexes)
             {
-                richTextBox1.Text.Insert(richTextBox1.Text.Length, index + "   ");
+                streamWriter.WriteLine(index);
             }
+            streamWriter.Close();
             MessageBox.Show("Файл успешно сохранён");
             
         }
