@@ -45,6 +45,7 @@ namespace courseworkbos
             this.startindexes = startindexes;
             this.seek = seek;
             textBox2.Visible = true;
+            label1.Visible = true;
             MessageBox.Show("В появившемся окне введите номер позиции, с которой нужно записать файл");
         }
         private void button2_Click(object sender, EventArgs e)
