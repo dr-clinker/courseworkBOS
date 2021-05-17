@@ -94,9 +94,16 @@ namespace courseworkbos
             {
                 if (disk.Substring(startindexes.ElementAt(i)).StartsWith(filename + "^"))
                 {
-                    if(disk.Substring(startindexes.ElementAt(i) + filename.Length + 1).Contains("^"))
+                    if(disk.Substring(startindexes.ElementAt(i) + filename.Length + 2).Contains("^"))
                     {
-                        disk = disk.Remove(startindexes.ElementAt(i), startindexes.ElementAt(i + 1) - startindexes.ElementAt(i));
+                        disk = disk.Remove(startindexes.ElementAt(i), startindexes.ElementAt(i + 1) - startindexes.ElementAt(i));                                
+                        string rm = "*";
+                        for (int z = 1; z < startindexes.ElementAt(i + 1) - startindexes.ElementAt(i); z++)
+                        {
+                            rm += "*";
+                        }
+                        disk = disk.Insert(startindexes.ElementAt(i), rm);
+                        startindexes.RemoveAt(i);
                     }
                     else
                     {
@@ -108,15 +115,12 @@ namespace courseworkbos
                         {
                             rm += "*";
                         }
-                        //disk = disk.Insert(startindexes.ElementAt(i),);
+                        disk = disk.Insert(startindexes.ElementAt(i), rm);
+                        startindexes.RemoveAt(i);
                     }
                 }
             }
-            if (startindexes.Count < i + 1)
-            {
 
-            }
-           
             //startindexes.Remove(disk.IndexOf(filename + "^" + file));
             //disk = disk.Replace(filename + "^" + file, rm);
             //File.Delete("catalog.txt");
@@ -126,6 +130,21 @@ namespace courseworkbos
             //    streamWriter.WriteLine(index);
             //}
             //streamWriter.Close();
+
+            
+
+
+            File.WriteAllText("harddrive.txt", disk);
+            File.Delete("catalog.txt");
+            StreamWriter streamWriter = File.AppendText("catalog.txt");
+            foreach (int index in startindexes)
+            {
+                streamWriter.WriteLine(index);
+            }
+            streamWriter.Close();
+            this.Hide();
+            Form2 form2 = new Form2();
+            form2.Show();
         }
     }
 }
