@@ -6,7 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;using System.IO;
+using System.Windows.Forms;
+using System.IO;
 
 namespace courseworkbos
 {
@@ -43,6 +44,7 @@ namespace courseworkbos
             overwrite = false;
             this.startindexes = startindexes;
             this.seek = seek;
+            textBox2.Visible = true;
             MessageBox.Show("В появившемся окне введите номер позиции, с которой нужно записать файл");
         }
         private void button2_Click(object sender, EventArgs e)
@@ -54,27 +56,98 @@ namespace courseworkbos
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (overwrite == false) //если файл новый
+            if (seek)
             {
-                rewrite();          
+                int newindex;
+                if(Int32.TryParse(textBox2.Text, out newindex))
+                {
+                    newindex = Int32.Parse(textBox2.Text);
+                }
+                else
+                {
+                    MessageBox.Show("Введите корректное число");
+                }
+                
+                indexcomparer indexcomparer = new indexcomparer();
+                string filename = textBox1.Text;
+                string file = richTextBox1.Text;
+                int alllenght = textBox1.Text.Length + richTextBox1.Text.Length;
+                string rewrstring = "*";
+                for (int i = 0; i < alllenght; i++)
+                {
+                    rewrstring += "*";
+                }
+                try
+                {
+                    if (disk.Substring(newindex).StartsWith(rewrstring))
+                    {
+                        disk = disk.Remove(newindex, rewrstring.Length);
+                        disk = disk.Insert(newindex, filename + "^" + file);
+                        File.WriteAllText("harddrive.txt", disk);
+                        StreamWriter writer = File.AppendText("catalog.txt");
+                        if (!startindexes.Contains(newindex))
+                        {
+                            writer.WriteLine(newindex);
+                        }
+                        writer.Close();
+                        startindexes.Clear();
+                        StreamReader reader = new StreamReader("catalog.txt");
+                        while (!reader.EndOfStream)
+                        {
+                            startindexes.Add(Int32.Parse(reader.ReadLine()));
+                        }
+                        reader.Close();
+                        startindexes.Sort(indexcomparer);
+                        File.Delete("catalog.txt");
+                        StreamWriter streamWriter = File.AppendText("catalog.txt");
+                        foreach (int index in startindexes)
+                        {
+                            streamWriter.WriteLine(index);
+                        }
+                        streamWriter.Close();
+                        MessageBox.Show("Файл успешно сохранён");
+                        //закрытие формы после сохранения
+                        this.Close();
+                        Form2 form2 = new Form2();
+                        form2.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Невозможно записать файл в указанное место. Недостаточно места на диске или место занято другим файлом");
+                    }
+                    
+                }
+                catch(Exception exc)
+                {
+                    MessageBox.Show("Ошибка адреса ячейки. Выберите другой адрес или уменьшите файл");
+                }
+
             }
-            else //если файл перезаписывается
+            else
             {
-                string rm = "*";
-                for (int i = 0; i < filename.Length + file.Length; i++)
+                if (overwrite == false) //если файл новый
                 {
-                    rm += "*";
+                    rewrite();
                 }
-                startindexes.Remove(disk.IndexOf(filename + "^" + file));
-                disk = disk.Replace(filename + "^" + file, rm);
-                File.Delete("catalog.txt");
-                StreamWriter streamWriter = File.AppendText("catalog.txt");
-                foreach (int index in startindexes)
+                else //если файл перезаписывается
                 {
-                    streamWriter.WriteLine(index);
+                    string rm = "*";
+                    for (int i = 0; i < filename.Length + file.Length; i++)
+                    {
+                        rm += "*";
+                    }
+                    startindexes.Remove(disk.IndexOf(filename + "^" + file));
+                    disk = disk.Replace(filename + "^" + file, rm);
+                    File.Delete("catalog.txt");
+                    StreamWriter streamWriter = File.AppendText("catalog.txt");
+                    foreach (int index in startindexes)
+                    {
+                        streamWriter.WriteLine(index);
+                    }
+                    streamWriter.Close();
+                    rewrite();
                 }
-                streamWriter.Close();
-                rewrite();
+           
             }
 
         }

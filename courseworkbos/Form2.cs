@@ -139,7 +139,7 @@ namespace courseworkbos
         private void button4_Click(object sender, EventArgs e)
         {
             CreateFile createFile = new CreateFile(disk, startindexes, true);
-            this.Close();
+            this.Hide();
             createFile.Show();
         }
     }
