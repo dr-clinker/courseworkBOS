@@ -36,6 +36,7 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.listBox2 = new System.Windows.Forms.ListBox();
+            this.listBox3 = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // listBox1
@@ -129,6 +130,15 @@
             this.listBox2.Size = new System.Drawing.Size(415, 212);
             this.listBox2.TabIndex = 8;
             // 
+            // listBox3
+            // 
+            this.listBox3.FormattingEnabled = true;
+            this.listBox3.ItemHeight = 16;
+            this.listBox3.Location = new System.Drawing.Point(538, 286);
+            this.listBox3.Name = "listBox3";
+            this.listBox3.Size = new System.Drawing.Size(415, 148);
+            this.listBox3.TabIndex = 9;
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -136,6 +146,7 @@
             this.BackColor = System.Drawing.Color.Chartreuse;
             this.ClientSize = new System.Drawing.Size(1005, 450);
             this.ControlBox = false;
+            this.Controls.Add(this.listBox3);
             this.Controls.Add(this.listBox2);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
@@ -162,5 +173,6 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.ListBox listBox3;
     }
 }
