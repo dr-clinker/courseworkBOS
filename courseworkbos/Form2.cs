@@ -24,6 +24,7 @@ namespace courseworkbos
 
         private void button1_Click(object sender, EventArgs e)
         {
+            MessageBox.Show("Ты бездарь!");
             CreateFile createFile = new CreateFile(disk, startindexes);
             ActiveForm.Hide();
             createFile.Show();
@@ -195,13 +196,6 @@ namespace courseworkbos
             this.Hide();
             Form2 form2 = new Form2();
             form2.Show();
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            CreateFile createFile = new CreateFile(disk, startindexes, true);
-            this.Hide();
-            createFile.Show();
         }
 
         private void button5_Click(object sender, EventArgs e)

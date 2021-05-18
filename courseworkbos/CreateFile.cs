@@ -17,7 +17,7 @@ namespace courseworkbos
         string filename;
         string file;
         bool overwrite = false;
-        bool seek = false;
+        string oldstring;
         List<int> startindexes = new List<int>();
         public CreateFile(string disk, List<int> startindexes)
         {
@@ -37,17 +37,6 @@ namespace courseworkbos
             richTextBox1.Text = file;
             overwrite = true;
         }
-        public CreateFile(string disk, List<int> startindexes, bool seek)
-        {
-            InitializeComponent();
-            this.disk = disk;
-            overwrite = false;
-            this.startindexes = startindexes;
-            this.seek = seek;
-            textBox2.Visible = true;
-            label1.Visible = true;
-            MessageBox.Show("В появившемся окне введите номер позиции, с которой нужно записать файл");
-        }
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -57,75 +46,75 @@ namespace courseworkbos
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (seek)
-            {
-                int newindex;
-                if(Int32.TryParse(textBox2.Text, out newindex))
-                {
-                    newindex = Int32.Parse(textBox2.Text);
-                }
-                else
-                {
-                    MessageBox.Show("Введите корректное число");
-                }
+            //if (seek)
+            //{
+            //    int newindex;
+            //    if(Int32.TryParse(textBox2.Text, out newindex))
+            //    {
+            //        newindex = Int32.Parse(textBox2.Text);
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("Введите корректное число");
+            //    }
                 
-                indexcomparer indexcomparer = new indexcomparer();
-                string filename = textBox1.Text;
-                string file = richTextBox1.Text;
-                int alllenght = textBox1.Text.Length + richTextBox1.Text.Length;
-                string rewrstring = "*";
-                for (int i = 0; i < alllenght; i++)
-                {
-                    rewrstring += "*";
-                }
-                try
-                {
-                    if (disk.Substring(newindex).StartsWith(rewrstring))
-                    {
-                        disk = disk.Remove(newindex, rewrstring.Length);
-                        disk = disk.Insert(newindex, filename + "^" + file);
-                        File.WriteAllText("harddrive.txt", disk);
-                        StreamWriter writer = File.AppendText("catalog.txt");
-                        if (!startindexes.Contains(newindex))
-                        {
-                            writer.WriteLine(newindex);
-                        }
-                        writer.Close();
-                        startindexes.Clear();
-                        StreamReader reader = new StreamReader("catalog.txt");
-                        while (!reader.EndOfStream)
-                        {
-                            startindexes.Add(Int32.Parse(reader.ReadLine()));
-                        }
-                        reader.Close();
-                        startindexes.Sort(indexcomparer);
-                        File.Delete("catalog.txt");
-                        StreamWriter streamWriter = File.AppendText("catalog.txt");
-                        foreach (int index in startindexes)
-                        {
-                            streamWriter.WriteLine(index);
-                        }
-                        streamWriter.Close();
-                        MessageBox.Show("Файл успешно сохранён");
-                        //закрытие формы после сохранения
-                        this.Close();
-                        Form2 form2 = new Form2();
-                        form2.Show();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Невозможно записать файл в указанное место. Недостаточно места на диске или место занято другим файлом");
-                    }
+            //    indexcomparer indexcomparer = new indexcomparer();
+            //    string filename = textBox1.Text;
+            //    string file = richTextBox1.Text;
+            //    int alllenght = textBox1.Text.Length + richTextBox1.Text.Length;
+            //    string rewrstring = "*";
+            //    for (int i = 0; i < alllenght; i++)
+            //    {
+            //        rewrstring += "*";
+            //    }
+            //    try
+            //    {
+            //        if (disk.Substring(newindex).StartsWith(rewrstring))
+            //        {
+            //            disk = disk.Remove(newindex, rewrstring.Length);
+            //            disk = disk.Insert(newindex, filename + "^" + file);
+            //            File.WriteAllText("harddrive.txt", disk);
+            //            StreamWriter writer = File.AppendText("catalog.txt");
+            //            if (!startindexes.Contains(newindex))
+            //            {
+            //                writer.WriteLine(newindex);
+            //            }
+            //            writer.Close();
+            //            startindexes.Clear();
+            //            StreamReader reader = new StreamReader("catalog.txt");
+            //            while (!reader.EndOfStream)
+            //            {
+            //                startindexes.Add(Int32.Parse(reader.ReadLine()));
+            //            }
+            //            reader.Close();
+            //            startindexes.Sort(indexcomparer);
+            //            File.Delete("catalog.txt");
+            //            StreamWriter streamWriter = File.AppendText("catalog.txt");
+            //            foreach (int index in startindexes)
+            //            {
+            //                streamWriter.WriteLine(index);
+            //            }
+            //            streamWriter.Close();
+            //            MessageBox.Show("Файл успешно сохранён");
+            //            //закрытие формы после сохранения
+            //            this.Close();
+            //            Form2 form2 = new Form2();
+            //            form2.Show();
+            //        }
+            //        else
+            //        {
+            //            MessageBox.Show("Невозможно записать файл в указанное место. Недостаточно места на диске или место занято другим файлом");
+            //        }
                     
-                }
-                catch(Exception exc)
-                {
-                    MessageBox.Show("Ошибка адреса ячейки. Выберите другой адрес или уменьшите файл");
-                }
+            //    }
+            //    catch(Exception exc)
+            //    {
+            //        MessageBox.Show("Ошибка адреса ячейки. Выберите другой адрес или уменьшите файл");
+            //    }
 
-            }
-            else
-            {
+            //}
+            //else
+            //{
                 if (overwrite == false) //если файл новый
                 {
                     rewrite();
@@ -149,7 +138,7 @@ namespace courseworkbos
                     rewrite();
                 }
            
-            }
+            //}
 
         }
         public void rewrite()
@@ -203,6 +192,55 @@ namespace courseworkbos
                 Form2 form2 = new Form2();
                 form2.Show();
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e) // считать
+        {
+            button1.Visible = false;
+            int newindex;
+            if (Int32.TryParse(textBox2.Text, out newindex))
+            {
+                newindex = Int32.Parse(textBox2.Text);
+            }
+            else
+            {
+                MessageBox.Show("Введите корректное число");
+            }
+            try
+            {
+                richTextBox1.Text = file.Substring(newindex);
+                oldstring = file.Substring(newindex);
+
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("файл по заданному адресу отсутствует");
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e) // сохранить
+        {
+            string rm = "*";
+            for (int i = 1; i < oldstring.Length; i++)
+            {
+                rm += "*";
+            }
+           if(oldstring.Length == richTextBox1.Text.Length)
+            {
+                int indexold =disk.IndexOf(oldstring);
+                disk = disk.Remove(indexold, oldstring.Length);
+                disk = disk.Insert(indexold, richTextBox1.Text);
+                File.WriteAllText("harddrive.txt", disk);
+                MessageBox.Show("Сохранено");
+                Form2 form2 = new Form2();
+                this.Close();
+                form2.Show();
+            }
+            else
+            {
+                MessageBox.Show("ошибка границ файла");
+            }
+            
         }
     }
 }

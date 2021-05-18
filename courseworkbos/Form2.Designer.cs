@@ -33,7 +33,6 @@
             this.checkfiles_button = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.listBox3 = new System.Windows.Forms.ListBox();
@@ -54,7 +53,7 @@
             // button1
             // 
             this.button1.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.button1.Location = new System.Drawing.Point(73, 311);
+            this.button1.Location = new System.Drawing.Point(36, 311);
             this.button1.Margin = new System.Windows.Forms.Padding(0);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(90, 35);
@@ -89,7 +88,7 @@
             // button3
             // 
             this.button3.BackColor = System.Drawing.Color.Red;
-            this.button3.Location = new System.Drawing.Point(166, 311);
+            this.button3.Location = new System.Drawing.Point(140, 311);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(81, 35);
             this.button3.TabIndex = 5;
@@ -97,24 +96,12 @@
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // button4
-            // 
-            this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.button4.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button4.Location = new System.Drawing.Point(352, 311);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(129, 81);
-            this.button4.TabIndex = 6;
-            this.button4.Text = "Переместить указатель к конкретному блоку";
-            this.button4.UseVisualStyleBackColor = false;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
             // button5
             // 
             this.button5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.button5.Location = new System.Drawing.Point(253, 311);
+            this.button5.Location = new System.Drawing.Point(227, 311);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(99, 35);
+            this.button5.Size = new System.Drawing.Size(109, 35);
             this.button5.TabIndex = 7;
             this.button5.Text = "Копировать";
             this.button5.UseVisualStyleBackColor = false;
@@ -127,6 +114,7 @@
             this.listBox2.ItemHeight = 16;
             this.listBox2.Location = new System.Drawing.Point(538, 41);
             this.listBox2.Name = "listBox2";
+            this.listBox2.SelectionMode = System.Windows.Forms.SelectionMode.None;
             this.listBox2.Size = new System.Drawing.Size(415, 212);
             this.listBox2.TabIndex = 8;
             // 
@@ -136,6 +124,7 @@
             this.listBox3.ItemHeight = 16;
             this.listBox3.Location = new System.Drawing.Point(538, 286);
             this.listBox3.Name = "listBox3";
+            this.listBox3.SelectionMode = System.Windows.Forms.SelectionMode.None;
             this.listBox3.Size = new System.Drawing.Size(415, 148);
             this.listBox3.TabIndex = 9;
             // 
@@ -149,7 +138,6 @@
             this.Controls.Add(this.listBox3);
             this.Controls.Add(this.listBox2);
             this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.checkfiles_button);
@@ -170,7 +158,6 @@
         private System.Windows.Forms.Button checkfiles_button;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.ListBox listBox2;
         private System.Windows.Forms.ListBox listBox3;
