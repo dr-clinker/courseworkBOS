@@ -24,7 +24,6 @@ namespace courseworkbos
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Ты бездарь!");
             CreateFile createFile = new CreateFile(disk, startindexes);
             ActiveForm.Hide();
             createFile.Show();
