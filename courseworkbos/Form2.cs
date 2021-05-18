@@ -75,9 +75,26 @@ namespace courseworkbos
         public void checkfiles()
         {
             listBox1.Items.Clear();
+            listBox2.Items.Clear();
             foreach (int index in startindexes)
             {
                 listBox1.Items.Add(disk.Substring(index, disk.Substring(index).IndexOf('^')));
+            }
+            for (int i = 0; i < startindexes.Count; i++)
+            {
+                string temp = disk.Substring(startindexes.ElementAt(i));
+                temp = temp.Substring(0, temp.IndexOf("*"));
+                try
+                {
+                    int next = startindexes.ElementAt(i + 1);
+                    if(temp.Length > next - startindexes.ElementAt(i))
+                    {
+                        temp = temp.Substring(0, next);
+                    }
+                }
+                catch (Exception ex) { }
+                listBox2.Items.Add($"Объем - {temp.Length}, #1 - {startindexes.ElementAt(i)}, " +
+                    $" № последнего - {startindexes.ElementAt(i) + temp.Length}");
             }
         }
 
